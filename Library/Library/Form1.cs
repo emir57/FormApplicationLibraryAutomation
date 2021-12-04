@@ -26,7 +26,7 @@ namespace Library
         public bool uyeCheck = false;
         public bool emanetCheck = false;
         public bool kitapCheck = false;
-        //**********************************************************
+        
         //Date function
         public string reverseDate(string text)
         {
@@ -39,8 +39,6 @@ namespace Library
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            //**********************************************************
-            //Form Load
             string query = "Select u.UyeNo,u.UyeAd,u.UyeSoyad,u.UyeTelefon,u.UyeEposta,u.UyeAdres,k.KitapAd,e.EmanetTeslimEdildi from Kitaplar k, Emanetler e, Uyeler u where e.UyeNo = u.UyeNo and e.KitapNo = k.KitapNo";
             DatabaseCrudHelper.GetList(dataGridView1,query);
             gbxArama.Enabled = true;
