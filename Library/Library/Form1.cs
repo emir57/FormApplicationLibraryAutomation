@@ -20,7 +20,7 @@ namespace Library
             InitializeComponent();
         }
         //Version
-        private string _version = "V2.0";
+        private string _version = "V2.5";
         //Checks
         public bool defaultCheck = true;
         public bool uyeCheck = false;
