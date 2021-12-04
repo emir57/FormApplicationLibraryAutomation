@@ -39,6 +39,7 @@ namespace Library
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            DatabaseCrudHelper.ConnectionSql();
             string query = "Select u.UyeNo,u.UyeAd,u.UyeSoyad,u.UyeTelefon,u.UyeEposta,u.UyeAdres,k.KitapAd,e.EmanetTeslimEdildi from Kitaplar k, Emanetler e, Uyeler u where e.UyeNo = u.UyeNo and e.KitapNo = k.KitapNo";
             DatabaseCrudHelper.GetList(dataGridView1,query);
             gbxArama.Enabled = true;

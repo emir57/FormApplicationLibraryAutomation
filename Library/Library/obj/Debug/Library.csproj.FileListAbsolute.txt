@@ -11,3 +11,16 @@ C:\Users\lolem\Desktop\Library\Library\obj\Debug\Library.pdb
 C:\Users\lolem\Desktop\Library\Library\bin\Debug\tr\Library.resources.dll
 C:\Users\lolem\Desktop\Library\Library\obj\Debug\Library.Form1.tr.resources
 C:\Users\lolem\Desktop\Library\Library\obj\Debug\tr\Library.resources.dll
+C:\Users\lolem\Documents\GitHub\FormApplicationLibraryAutomation\Library\Library\bin\Debug\Library.exe.config
+C:\Users\lolem\Documents\GitHub\FormApplicationLibraryAutomation\Library\Library\bin\Debug\Library.exe
+C:\Users\lolem\Documents\GitHub\FormApplicationLibraryAutomation\Library\Library\bin\Debug\Library.pdb
+C:\Users\lolem\Documents\GitHub\FormApplicationLibraryAutomation\Library\Library\bin\Debug\tr\Library.resources.dll
+C:\Users\lolem\Documents\GitHub\FormApplicationLibraryAutomation\Library\Library\obj\Debug\Library.csproj.AssemblyReference.cache
+C:\Users\lolem\Documents\GitHub\FormApplicationLibraryAutomation\Library\Library\obj\Debug\Library.Form1.resources
+C:\Users\lolem\Documents\GitHub\FormApplicationLibraryAutomation\Library\Library\obj\Debug\Library.Properties.Resources.resources
+C:\Users\lolem\Documents\GitHub\FormApplicationLibraryAutomation\Library\Library\obj\Debug\Library.Form1.tr.resources
+C:\Users\lolem\Documents\GitHub\FormApplicationLibraryAutomation\Library\Library\obj\Debug\Library.csproj.GenerateResource.cache
+C:\Users\lolem\Documents\GitHub\FormApplicationLibraryAutomation\Library\Library\obj\Debug\Library.csproj.CoreCompileInputs.cache
+C:\Users\lolem\Documents\GitHub\FormApplicationLibraryAutomation\Library\Library\obj\Debug\tr\Library.resources.dll
+C:\Users\lolem\Documents\GitHub\FormApplicationLibraryAutomation\Library\Library\obj\Debug\Library.exe
+C:\Users\lolem\Documents\GitHub\FormApplicationLibraryAutomation\Library\Library\obj\Debug\Library.pdb

@@ -10,34 +10,35 @@ using System.Windows.Forms;
 
 namespace Library.Helpers
 {
-    public class DatabaseCrudHelper
+    public static class DatabaseCrudHelper
     {
         private static SqlConnection con;
         private static SqlCommand cmd;
         private static SqlDataAdapter da;
         private static DataSet ds;
         private static string connectionString = "server=.;Database=library;trusted_connection=true;";
-        public static void ConnectionOpen()
+        private static void ConnectionOpen()
         {
             if (con.State == ConnectionState.Closed)
             {
                 con.Open();
             }
         }
+        private static void ConnectionClose()
+        {
+            if (con.State == ConnectionState.Open)
+            {
+                con.Close();
+            }
+        }
         public static void ConnectionSql()
         {
             con = new SqlConnection(connectionString);
-        }
-        public DatabaseCrudHelper()
-        {
-            ConnectionSql();
-            ConnectionOpen();
         }
         public static void GetList(DataGridView gridView,string query)
         {
             try
             {
-                ConnectionSql();
                 ConnectionOpen();
                 cmd = new SqlCommand(query, con);
                 da = new SqlDataAdapter(cmd);
@@ -54,6 +55,7 @@ namespace Library.Helpers
         //Insert
         public static void KitapEkle(Kitap kitap,Label label)
         {
+            ConnectionOpen();
             string query = "insert into Kitaplar(KitapAd,KitapYazari,KitapBaskiYil,KitapSayfaSayi,KitapDil,KitapYayinEvi,KitapAciklama) values(@kitapad,@kitapyazar,@kitapbaski,@kitapsayfasayi,@kitapdil,@kitapyayinevi,@kitapaciklama)";
             cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@kitapad", kitap.KitapAd);
@@ -63,12 +65,13 @@ namespace Library.Helpers
             cmd.Parameters.AddWithValue("@kitapdil", kitap.KitapDil);
             cmd.Parameters.AddWithValue("@kitapyayinevi", kitap.KitapYayinEvi);
             cmd.Parameters.AddWithValue("@kitapaciklama", kitap.KitapAciklama);
-            cmd.ExecuteNonQueryAsync();
-            con.Close();
+            cmd.ExecuteNonQuery();
+            ConnectionClose();
             label.Text = "Ekleme Başarılı\nKitaplar";
         }
         public static void EmanetEkle(Emanet emanet,Label label)
         {
+            ConnectionOpen();
             string query = "insert into Emanetler(UyeNo,KitapNo,EmanetVermeTarih,EmanetGeriAlmatarih,EmanetNot,EmanetTeslimEdildi)values(@uyeno,@kitapno,@vermetarih,@almatarih,@not,@teslim)";
             cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@uyeno", emanet.UyeNo);
@@ -79,12 +82,13 @@ namespace Library.Helpers
             cmd.Parameters.AddWithValue("@not", emanet.EmanetNot);
             cmd.Parameters.AddWithValue("@teslim", emanet.EmanetTeslimEdildi);
 
-            cmd.ExecuteNonQueryAsync();
-            con.Close();
+            cmd.ExecuteNonQuery();
+            ConnectionClose();
             label.Text = "Ekleme Başarılı\nEmanetler";
         }
         public static void UyeEkle(Uye uye,Label label)
         {
+            ConnectionOpen();
             string uyeKayit = "insert into Uyeler(UyeAd,UyeSoyad,UyeTelefon,UyeEposta,UyeAdres) values(@ad,@soyad,@telefon,@eposta,@adres)";
             cmd = new SqlCommand(uyeKayit, con);
             cmd.Parameters.AddWithValue("@ad", uye.UyeAd);
@@ -92,43 +96,47 @@ namespace Library.Helpers
             cmd.Parameters.AddWithValue("@telefon", uye.UyeTelefon);
             cmd.Parameters.AddWithValue("@eposta", uye.UyeEposta);
             cmd.Parameters.AddWithValue("@adres", uye.UyeAdres);
-            cmd.ExecuteNonQueryAsync();
-            con.Close();
+            cmd.ExecuteNonQuery();
+            ConnectionClose();
             label.Text = "Ekleme Başarılı\nUyeler";
         }
         
         //Delete
         public static void KitapSil(int id, Label label)
         {
+            ConnectionOpen();
             string query = "delete from Kitaplar where KitapNo=@id";
             cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@id", id);
-            cmd.ExecuteNonQueryAsync();
-            con.Close();
+            cmd.ExecuteNonQuery();
+            ConnectionClose();
             label.Text = "Silme Başarılı\nKitaplar";
         }
         public static void EmanetSil(int id, Label label)
         {
+            ConnectionOpen();
             string query = "delete from Emanetler where EmanetNo=@id";
             cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@id", id);
-            cmd.ExecuteNonQueryAsync();
-            con.Close();
+            cmd.ExecuteNonQuery();
+            ConnectionClose();
             label.Text = "Silme Başarılı\nEmanetler";
         }
         public static void UyeSil(int id, Label label)
         {
+            ConnectionOpen();
             string query = "delete from Uyeler where UyeNo=@id";
             cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@id", id);
-            cmd.ExecuteNonQueryAsync();
-            con.Close();
+            cmd.ExecuteNonQuery();
+            ConnectionClose();
             label.Text = "Silme Başarılı\nUyeler";
         }
 
         //Update
         public static void KitapGuncelle(Kitap kitap, Label label)
         {
+            ConnectionOpen();
             string kitapkayit = "update Kitaplar set KitapAd=@kitapad ,KitapYazari=@kitapyazar ,KitapBaskiYil=@kitapbaski ,KitapSayfaSayi=@kitapsayfasayi ,KitapDil=@kitapdil ,KitapYayinEvi=@kitapyayinevi ,KitapAciklama=@kitapaciklama where KitapNo=@id";
             cmd = new SqlCommand(kitapkayit, con);
             cmd.Parameters.AddWithValue("@id", kitap.KitapNo);
@@ -139,12 +147,13 @@ namespace Library.Helpers
             cmd.Parameters.AddWithValue("@kitapdil", kitap.KitapDil);
             cmd.Parameters.AddWithValue("@kitapyayinevi", kitap.KitapYayinEvi);
             cmd.Parameters.AddWithValue("@kitapaciklama", kitap.KitapAciklama);
-            cmd.ExecuteNonQueryAsync();
-            con.Close();
+            cmd.ExecuteNonQuery();
+            ConnectionClose();
             label.Text = "Güncelleme Başarılı\nKitaplar";
         }
         public static void EmanetGuncelle(Emanet emanet, Label label)
         {
+            ConnectionOpen();
             string emanetkayit = "update Emanetler set UyeNo=@uyeno ,KitapNo=@kitapno ,EmanetVermeTarih=@vermetarih ,EmanetGeriAlmatarih=@almatarih ,EmanetIslemTarih=@ıslemtarih ,EmanetNot=@not ,EmanetTeslimEdildi=@teslim where EmanetNo=@id";
             cmd = new SqlCommand(emanetkayit, con);
             cmd.Parameters.AddWithValue("@id", emanet.EmanetNo);
@@ -155,12 +164,13 @@ namespace Library.Helpers
             cmd.Parameters.AddWithValue("@ıslemtarih", emanet.EmanetIslemTarih);
             cmd.Parameters.AddWithValue("@not", emanet.EmanetNot);
             cmd.Parameters.AddWithValue("@teslim", emanet.EmanetTeslimEdildi);
-            cmd.ExecuteNonQueryAsync();
-            con.Close();
+            cmd.ExecuteNonQuery();
+            ConnectionClose();
             label.Text = "Güncelleme Başarılı\nEmanetler";
         }
         public static void UyeGuncelle(Uye uye, Label label)
         {
+            ConnectionOpen();
             string uyeKayit = "update Uyeler set UyeAd=@ad ,UyeSoyad=@soyad ,UyeTelefon=@telefon ,UyeEposta=@eposta ,UyeAdres=@adres Where UyeNo=@id";
             cmd = new SqlCommand(uyeKayit, con);
             cmd.Parameters.AddWithValue("@id", uye.UyeNo);
@@ -169,8 +179,8 @@ namespace Library.Helpers
             cmd.Parameters.AddWithValue("@telefon", uye.UyeTelefon);
             cmd.Parameters.AddWithValue("@eposta", uye.UyeEposta);
             cmd.Parameters.AddWithValue("@adres", uye.UyeAdres);
-            cmd.ExecuteNonQueryAsync();
-            con.Close();
+            cmd.ExecuteNonQuery();
+            ConnectionClose();
             label.Text = "Güncelleme Başarılı\nUyeler";
         }
     }
