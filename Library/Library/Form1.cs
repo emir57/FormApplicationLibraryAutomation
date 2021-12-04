@@ -519,19 +519,16 @@ namespace Library
                     {
                         teslimedilme = "Teslim Edilmedi";
                     }
-                    string query = "insert into Emanetler(UyeNo,KitapNo,EmanetVermeTarih,EmanetGeriAlmatarih,EmanetNot,EmanetTeslimEdildi)values(@uyeno,@kitapno,@vermetarih,@almatarih,@not,@teslim)";
-                    cmd = new SqlCommand(query, con);
-                    cmd.Parameters.AddWithValue("@uyeno", textBox2.Text);
-                    cmd.Parameters.AddWithValue("@kitapno", textBox3.Text);
-                    cmd.Parameters.AddWithValue("@vermetarih",DateTime.Parse(reverseDate(maskedVerme.Text)));
-                    cmd.Parameters.AddWithValue("@almatarih", DateTime.Parse(reverseDate(maskedGeriAlma.Text)));
-                    //cmd.Parameters.AddWithValue("@ıslemtarih", DateTime.Parse(reverseDate(maskedIslemTarihi.Text)));
-                    cmd.Parameters.AddWithValue("@not", textBox7.Text);
-                    cmd.Parameters.AddWithValue("@teslim", teslimedilme);
-
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    label9.Text = "Ekleme Başarılı\nEmanetler";
+                    var emanet = new Emanet
+                    {
+                        UyeNo = int.Parse(textBox2.Text),
+                        KitapNo = int.Parse(textBox3.Text),
+                        EmanetVermeTarih = DateTime.Parse(reverseDate(maskedVerme.Text)),
+                        EmanetGeriAlmaTarih = DateTime.Parse(reverseDate(maskedGeriAlma.Text)),
+                        EmanetNot = textBox7.Text,
+                        EmanetTeslimEdildi = teslimedilme
+                    };
+                    DatabaseCrudHelper.EmanetEkle(emanet, label9);
                     getList(DatabaseQueryHelper.QueryEmanet);
                 }
                 catch(System.Exception exception)

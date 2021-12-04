@@ -48,5 +48,21 @@ namespace Library.Helpers
             con.Close();
             label.Text = "Ekleme Başarılı\nKitaplar";
         }
+        public static void EmanetEkle(Emanet emanet,Label label)
+        {
+            string query = "insert into Emanetler(UyeNo,KitapNo,EmanetVermeTarih,EmanetGeriAlmatarih,EmanetNot,EmanetTeslimEdildi)values(@uyeno,@kitapno,@vermetarih,@almatarih,@not,@teslim)";
+            cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@uyeno", emanet.UyeNo);
+            cmd.Parameters.AddWithValue("@kitapno", emanet.KitapNo);
+            cmd.Parameters.AddWithValue("@vermetarih", emanet.EmanetVermeTarih);
+            cmd.Parameters.AddWithValue("@almatarih", emanet.EmanetGeriAlmaTarih);
+            //cmd.Parameters.AddWithValue("@ıslemtarih", DateTime.Parse(reverseDate(maskedIslemTarihi.Text)));
+            cmd.Parameters.AddWithValue("@not", emanet.EmanetNot);
+            cmd.Parameters.AddWithValue("@teslim", emanet.EmanetTeslimEdildi);
+
+            cmd.ExecuteNonQuery();
+            con.Close();
+            label.Text = "Ekleme Başarılı\nEmanetler";
+        }
     }
 }
