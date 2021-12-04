@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using Library.Helpers;
+using Library.Models;
 
 namespace Library
 {
@@ -28,7 +29,6 @@ namespace Library
         //**********************************************************
         //Connection Strings
         //local
-        public string connectionString = "server=.;Database=library;trusted_connection=true;";
         //IP
         //public string connectionString = "Server=ip,port;Database=database;User Id=username;Password=password;";
         //Connection
@@ -69,25 +69,6 @@ namespace Library
 
 
         }
-        //**********************************************************
-        //Connection Open
-        public void ConnectionOpen()
-        {
-            if(con.State == ConnectionState.Closed)
-            {
-                con.Open();
-            }
-        }
-        //**********************************************************
-        //ConnectionSql (SqlConnection)
-        public void ConnectionSql()
-        {
-            con = new SqlConnection(connectionString);
-        }
-
-        //**********************************************************
-
-
         private void Form1_Load(object sender, EventArgs e)
         {
             //**********************************************************
@@ -496,31 +477,24 @@ namespace Library
             maskedVerme.Text = "";
             CmbBoxTeslim.SelectedIndex = 2;
         }
-
+        //Add
         private void button5_Click(object sender, EventArgs e)
         {
-            //**********************************************************
-            //Add
-            ConnectionSql();
-            ConnectionOpen();
             if (kitapCheck==true && emanetCheck ==false && uyeCheck==false)
             {
                 try
                 {
-                    
-                    string  query = "insert into Kitaplar(KitapAd,KitapYazari,KitapBaskiYil,KitapSayfaSayi,KitapDil,KitapYayinEvi,KitapAciklama) values(@kitapad,@kitapyazar,@kitapbaski,@kitapsayfasayi,@kitapdil,@kitapyayinevi,@kitapaciklama)";
-                    cmd = new SqlCommand(query, con);
-                    //cmd.Parameters.AddWithValue("@id", "");
-                    cmd.Parameters.AddWithValue("@kitapad", textBox2.Text);
-                    cmd.Parameters.AddWithValue("@kitapyazar", textBox3.Text);
-                    cmd.Parameters.AddWithValue("@kitapbaski", textBox4.Text);
-                    cmd.Parameters.AddWithValue("@kitapsayfasayi", textBox5.Text);
-                    cmd.Parameters.AddWithValue("@kitapdil", textBox6.Text);
-                    cmd.Parameters.AddWithValue("@kitapyayinevi", textBox7.Text);
-                    cmd.Parameters.AddWithValue("@kitapaciklama", textBox8.Text);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    label9.Text = "Ekleme Başarılı\nKitaplar";
+                    var kitap = new Kitap
+                    {
+                        KitapAd = textBox2.Text,
+                        KitapYazari = textBox3.Text,
+                        KitapBaskiYil = int.Parse(textBox4.Text),
+                        KitapSayfaSayi = int.Parse(textBox5.Text),
+                        KitapDil = textBox6.Text,
+                        KitapYayinEvi = textBox7.Text,
+                        KitapAciklama = textBox8.Text
+                    };
+                    DatabaseCrudHelper.KitapEkle(kitap, label9);
                     getList(DatabaseQueryHelper.QueryKitap);
                 }catch(System.Exception exception)
                 {
