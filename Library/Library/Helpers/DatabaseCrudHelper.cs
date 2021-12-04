@@ -145,7 +145,19 @@ namespace Library.Helpers
         }
         public static void EmanetGuncelle(Emanet emanet, Label label)
         {
-            
+            string emanetkayit = "update Emanetler set UyeNo=@uyeno ,KitapNo=@kitapno ,EmanetVermeTarih=@vermetarih ,EmanetGeriAlmatarih=@almatarih ,EmanetIslemTarih=@ıslemtarih ,EmanetNot=@not ,EmanetTeslimEdildi=@teslim where EmanetNo=@id";
+            cmd = new SqlCommand(emanetkayit, con);
+            cmd.Parameters.AddWithValue("@id", emanet.EmanetNo);
+            cmd.Parameters.AddWithValue("@uyeno", emanet.UyeNo);
+            cmd.Parameters.AddWithValue("@kitapno", emanet.KitapNo);
+            cmd.Parameters.AddWithValue("@vermetarih", emanet.EmanetVermeTarih);
+            cmd.Parameters.AddWithValue("@almatarih", emanet.EmanetGeriAlmaTarih);
+            cmd.Parameters.AddWithValue("@ıslemtarih", emanet.EmanetIslemTarih);
+            cmd.Parameters.AddWithValue("@not", emanet.EmanetNot);
+            cmd.Parameters.AddWithValue("@teslim", emanet.EmanetTeslimEdildi);
+            cmd.ExecuteNonQuery();
+            con.Close();
+            label.Text = "Güncelleme Başarılı\nEmanetler";
         }
         public static void UyeGuncelle(Uye uye, Label label)
         {

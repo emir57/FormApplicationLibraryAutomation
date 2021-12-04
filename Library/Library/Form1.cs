@@ -334,23 +334,18 @@ namespace Library
                     }
                     try
                     {
-                        DateTime vermeTarih = Convert.ToDateTime(reverseDate(maskedVerme.Text));
-                        DateTime geriAlma = Convert.ToDateTime(reverseDate(maskedGeriAlma.Text));
-                        DateTime islemTarih = Convert.ToDateTime(reverseDate(maskedIslemTarihi.Text));
-                        string emanetkayit = "update Emanetler set UyeNo=@uyeno ,KitapNo=@kitapno ,EmanetVermeTarih=@vermetarih ,EmanetGeriAlmatarih=@almatarih ,EmanetIslemTarih=@ıslemtarih ,EmanetNot=@not ,EmanetTeslimEdildi=@teslim where EmanetNo=@id";
-                        cmd = new SqlCommand(emanetkayit, con);
-                        cmd.Parameters.AddWithValue("@id", textBox1.Text);
-                        cmd.Parameters.AddWithValue("@uyeno", textBox2.Text);
-                        cmd.Parameters.AddWithValue("@kitapno", textBox3.Text);
-                        cmd.Parameters.AddWithValue("@vermetarih", vermeTarih);
-                        cmd.Parameters.AddWithValue("@almatarih", geriAlma);
-                        cmd.Parameters.AddWithValue("@ıslemtarih", islemTarih);
-                        cmd.Parameters.AddWithValue("@not", textBox7.Text);
-                        cmd.Parameters.AddWithValue("@teslim", teslimedilme);
-
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                        label9.Text = "Güncelleme Başarılı\nEmanetler";
+                        var emanet = new Emanet
+                        {
+                            EmanetNo=int.Parse(textBox1.Text),
+                            UyeNo = int.Parse(textBox2.Text),
+                            KitapNo = int.Parse(textBox3.Text),
+                            EmanetVermeTarih = DateTime.Parse(reverseDate(maskedVerme.Text)),
+                            EmanetGeriAlmaTarih = DateTime.Parse(reverseDate(maskedGeriAlma.Text)),
+                            EmanetIslemTarih= DateTime.Parse(reverseDate(maskedIslemTarihi.Text)),
+                            EmanetNot = textBox7.Text,
+                            EmanetTeslimEdildi = teslimedilme
+                        };
+                        DatabaseCrudHelper.EmanetGuncelle(emanet, label9);
                         DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryEmanet);
                     }
                     catch (Exception exception)
@@ -374,7 +369,7 @@ namespace Library
                             KitapYayinEvi = textBox7.Text,
                             KitapAciklama = textBox8.Text
                         };
-                        
+                        DatabaseCrudHelper.KitapGuncelle(kitap, label9);
                         DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryKitap);
                     }
                     catch (Exception exception)
