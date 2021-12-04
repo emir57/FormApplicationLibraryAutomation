@@ -256,10 +256,7 @@ namespace Library
                 }
 
             }
-            catch(Exception exception)
-            {
-               
-            }
+            catch{}
 
         }
 
@@ -345,7 +342,7 @@ namespace Library
                             KitapYayinEvi = textBox7.Text,
                             KitapAciklama = textBox8.Text
                         };
-                        DatabaseCrudHelper.KitapGuncelle(kitap, label9);
+                        DatabaseCrudHelper .KitapGuncelle(kitap, label9);
                         DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryKitap);
                     }
                     catch (Exception exception)
@@ -467,7 +464,7 @@ namespace Library
                         EmanetNot = textBox7.Text,
                         EmanetTeslimEdildi = teslimedilme
                     };
-                    DatabaseCrudHelper.EmanetEkle(emanet, label9);
+                    DatabaseCrudHelper .EmanetEkle(emanet, label9);
                     DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryEmanet);
                 }
                 catch(System.Exception exception)

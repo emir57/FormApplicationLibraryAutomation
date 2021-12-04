@@ -63,7 +63,7 @@ namespace Library.Helpers
             cmd.Parameters.AddWithValue("@kitapdil", kitap.KitapDil);
             cmd.Parameters.AddWithValue("@kitapyayinevi", kitap.KitapYayinEvi);
             cmd.Parameters.AddWithValue("@kitapaciklama", kitap.KitapAciklama);
-            cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQueryAsync();
             con.Close();
             label.Text = "Ekleme Başarılı\nKitaplar";
         }
@@ -79,7 +79,7 @@ namespace Library.Helpers
             cmd.Parameters.AddWithValue("@not", emanet.EmanetNot);
             cmd.Parameters.AddWithValue("@teslim", emanet.EmanetTeslimEdildi);
 
-            cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQueryAsync();
             con.Close();
             label.Text = "Ekleme Başarılı\nEmanetler";
         }
@@ -92,18 +92,18 @@ namespace Library.Helpers
             cmd.Parameters.AddWithValue("@telefon", uye.UyeTelefon);
             cmd.Parameters.AddWithValue("@eposta", uye.UyeEposta);
             cmd.Parameters.AddWithValue("@adres", uye.UyeAdres);
-            cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQueryAsync();
             con.Close();
             label.Text = "Ekleme Başarılı\nUyeler";
         }
         
         //Delete
-        public static void KitapSil(int id,Label label)
+        public static void KitapSil(int id, Label label)
         {
             string query = "delete from Kitaplar where KitapNo=@id";
             cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@id", id);
-            cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQueryAsync();
             con.Close();
             label.Text = "Silme Başarılı\nKitaplar";
         }
@@ -112,7 +112,7 @@ namespace Library.Helpers
             string query = "delete from Emanetler where EmanetNo=@id";
             cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@id", id);
-            cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQueryAsync();
             con.Close();
             label.Text = "Silme Başarılı\nEmanetler";
         }
@@ -121,7 +121,7 @@ namespace Library.Helpers
             string query = "delete from Uyeler where UyeNo=@id";
             cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@id", id);
-            cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQueryAsync();
             con.Close();
             label.Text = "Silme Başarılı\nUyeler";
         }
@@ -139,7 +139,7 @@ namespace Library.Helpers
             cmd.Parameters.AddWithValue("@kitapdil", kitap.KitapDil);
             cmd.Parameters.AddWithValue("@kitapyayinevi", kitap.KitapYayinEvi);
             cmd.Parameters.AddWithValue("@kitapaciklama", kitap.KitapAciklama);
-            cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQueryAsync();
             con.Close();
             label.Text = "Güncelleme Başarılı\nKitaplar";
         }
@@ -155,7 +155,7 @@ namespace Library.Helpers
             cmd.Parameters.AddWithValue("@ıslemtarih", emanet.EmanetIslemTarih);
             cmd.Parameters.AddWithValue("@not", emanet.EmanetNot);
             cmd.Parameters.AddWithValue("@teslim", emanet.EmanetTeslimEdildi);
-            cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQueryAsync();
             con.Close();
             label.Text = "Güncelleme Başarılı\nEmanetler";
         }
@@ -169,7 +169,7 @@ namespace Library.Helpers
             cmd.Parameters.AddWithValue("@telefon", uye.UyeTelefon);
             cmd.Parameters.AddWithValue("@eposta", uye.UyeEposta);
             cmd.Parameters.AddWithValue("@adres", uye.UyeAdres);
-            cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQueryAsync();
             con.Close();
             label.Text = "Güncelleme Başarılı\nUyeler";
         }
