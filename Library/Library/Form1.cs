@@ -299,17 +299,17 @@ namespace Library
                 {
                     try
                     {
-                        string uyeKayit = "update Uyeler set UyeAd=@ad ,UyeSoyad=@soyad ,UyeTelefon=@telefon ,UyeEposta=@eposta ,UyeAdres=@adres Where UyeNo=@id";
-                        cmd = new SqlCommand(uyeKayit, con);
-                        cmd.Parameters.AddWithValue("@id", textBox1.Text);
-                        cmd.Parameters.AddWithValue("@ad", textBox2.Text);
-                        cmd.Parameters.AddWithValue("@soyad", textBox3.Text);
-                        cmd.Parameters.AddWithValue("@telefon", textBox4.Text);
-                        cmd.Parameters.AddWithValue("@eposta", textBox5.Text);
-                        cmd.Parameters.AddWithValue("@adres", textBox6.Text);
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                        label9.Text = "Güncelleme Başarılı\nUyeler";
+                        var uye = new Uye
+                        {
+                            UyeNo = int.Parse(textBox1.Text),
+                            UyeAd = textBox2.Text,
+                            UyeSoyad = textBox3.Text,
+                            UyeTelefon = textBox4.Text,
+                            UyeEposta = textBox5.Text,
+                            UyeAdres = textBox6.Text
+                        };
+                        DatabaseCrudHelper.UyeGuncelle(uye, label9);
+                        
                         DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryUye);
                     }
                     catch (Exception exception)

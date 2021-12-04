@@ -137,7 +137,17 @@ namespace Library.Helpers
         }
         public static void UyeGuncelle(Uye uye, Label label)
         {
-            
+            string uyeKayit = "update Uyeler set UyeAd=@ad ,UyeSoyad=@soyad ,UyeTelefon=@telefon ,UyeEposta=@eposta ,UyeAdres=@adres Where UyeNo=@id";
+            cmd = new SqlCommand(uyeKayit, con);
+            cmd.Parameters.AddWithValue("@id", uye.UyeNo);
+            cmd.Parameters.AddWithValue("@ad", uye.UyeAd);
+            cmd.Parameters.AddWithValue("@soyad", uye.UyeSoyad);
+            cmd.Parameters.AddWithValue("@telefon", uye.UyeTelefon);
+            cmd.Parameters.AddWithValue("@eposta", uye.UyeEposta);
+            cmd.Parameters.AddWithValue("@adres", uye.UyeAdres);
+            cmd.ExecuteNonQuery();
+            con.Close();
+            label.Text = "Güncelleme Başarılı\nUyeler";
         }
     }
 }
