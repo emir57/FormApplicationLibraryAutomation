@@ -47,34 +47,12 @@ namespace Library
             string full = year + "-" + month + "-" + day;
             return full;
         }
-        //**********************************************************
-        //Get List
-        public void getList(string query)
-        {
-            try
-            {
-                ConnectionSql();
-                ConnectionOpen();
-                cmd = new SqlCommand(query, con);
-                da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                dataGridView1.DataSource = dt;
-                con.Close();
-            }
-            catch(Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
-
-
-        }
         private void Form1_Load(object sender, EventArgs e)
         {
             //**********************************************************
             //Form Load
             string query = "Select u.UyeNo,u.UyeAd,u.UyeSoyad,u.UyeTelefon,u.UyeEposta,u.UyeAdres,k.KitapAd,e.EmanetTeslimEdildi from Kitaplar k, Emanetler e, Uyeler u where e.UyeNo = u.UyeNo and e.KitapNo = k.KitapNo";
-            getList(query);
+            DatabaseCrudHelper.GetList(dataGridView1,query);
             gbxArama.Enabled = true;
             gbxEmanet.Enabled = false;
             gbxArama.Enabled = true;
@@ -109,7 +87,7 @@ namespace Library
             groupBox2.Enabled = false;
             //Default List
             string query = "Select u.UyeNo ,u.UyeAd,u.UyeSoyad,u.UyeTelefon,u.UyeEposta,u.UyeAdres,k.KitapAd,e.EmanetTeslimEdildi from Kitaplar k, Emanetler e, Uyeler u where e.UyeNo = u.UyeNo and e.KitapNo = k.KitapNo";
-            getList(query);
+            DatabaseCrudHelper.GetList(dataGridView1, query);
         }
 
         private void BtnUyeList_Click(object sender, EventArgs e)
@@ -125,7 +103,7 @@ namespace Library
             string query = "Select u.UyeAd,u.UyeSoyad,u.UyeTelefon,u.UyeEposta,u.UyeAdres,e.EmanetTeslimEdildi from Uyeler u left join Emanetler e on e.UyeNo = u.UyeNo";
             groupBox2.Enabled = false;
             //Listed than Uye
-            getList(query);
+            DatabaseCrudHelper.GetList(dataGridView1, query);
         }
 
         private void BtnKitapList_Click(object sender, EventArgs e)
@@ -140,7 +118,7 @@ namespace Library
             string query = "Select k.KitapNo, k.KitapAd,k.KitapYayinEvi,e.EmanetNot,e.EmanetVermeTarih,e.EmanetGeriAlmaTarih,e.EmanetIslemTarih, e.EmanetTeslimEdildi from Kitaplar k left join Emanetler e on k.KitapNo= e.KitapNo";
             groupBox2.Enabled = false;
             //Listed than Kitap
-            getList(query);
+            DatabaseCrudHelper.GetList(dataGridView1, query);
         }
 
         private void BtnKitapAllList_Click(object sender, EventArgs e)
@@ -166,7 +144,7 @@ namespace Library
             //****************
             //All Kitap Listed
             string query = "Select * from Kitaplar";
-            getList(query);
+            DatabaseCrudHelper.GetList(dataGridView1, query);
             label1.Text = "No:"; textBox1.ReadOnly = true;
             label2.Text = "Adı:";
             label3.Text = "Yazarı:";
@@ -204,7 +182,7 @@ namespace Library
             //***************
             //All Uye Listed
             string query = "Select * from Uyeler";
-            getList(query);
+            DatabaseCrudHelper.GetList(dataGridView1, query);
             label1.Text = "No:"; textBox1.ReadOnly = true;
             label2.Text = "Ad:";
             label3.Text = "Soyad:";
@@ -243,7 +221,7 @@ namespace Library
             //****************
             //All Emanet Listed
             string query = "Select * from Emanetler";
-            getList(query);
+            DatabaseCrudHelper.GetList(dataGridView1, query);
             label1.Text = "No:"; textBox1.ReadOnly = true;
             label2.Text = "Uye No:";
             label3.Text = "Kitap No";
@@ -317,16 +295,12 @@ namespace Library
             {
                 ConnectionSql();
                 ConnectionOpen();
-
-
                 label9.Text = "";
                 label9.Text += "Güncelleme Başarılı";
                 if (uyeCheck == true && emanetCheck == false && kitapCheck == false)
                 {
                     try
                     {
-
-
                         string uyeKayit = "update Uyeler set UyeAd=@ad ,UyeSoyad=@soyad ,UyeTelefon=@telefon ,UyeEposta=@eposta ,UyeAdres=@adres Where UyeNo=@id";
                         cmd = new SqlCommand(uyeKayit, con);
                         cmd.Parameters.AddWithValue("@id", textBox1.Text);
@@ -338,7 +312,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Güncelleme Başarılı\nUyeler";
-                        getList(DatabaseQueryHelper.QueryUye);
+                        DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryUye);
                     }
                     catch (Exception exception)
                     {
@@ -380,7 +354,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Güncelleme Başarılı\nEmanetler";
-                        getList(DatabaseQueryHelper.QueryEmanet);
+                        DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryEmanet);
                     }
                     catch (Exception exception)
                     {
@@ -406,7 +380,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Güncelleme Başarılı\nKitaplar";
-                        getList(DatabaseQueryHelper.QueryKitap);
+                        DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryKitap);
                     }
                     catch (Exception exception)
                     {
@@ -427,7 +401,7 @@ namespace Library
             groupBox2.Enabled = false;
 
             string query = "Select u.UyeAd, u.UyeSoyad,u.UyeTelefon,u.UyeEposta,k.KitapAd,e.EmanetTeslimEdildi from Kitaplar k, Uyeler u, Emanetler e Where e.EmanetTeslimEdildi = 'Teslim Edildi' and e.UyeNo = u.UyeNo and e.KitapNo = k.KitapNo";
-            getList(query);
+            DatabaseCrudHelper.GetList(dataGridView1, query);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -439,7 +413,7 @@ namespace Library
             groupBox2.Enabled = false;
 
             string query = "Select u.UyeAd, u.UyeSoyad,u.UyeTelefon,u.UyeEposta,k.KitapAd,e.EmanetTeslimEdildi from Kitaplar k, Uyeler u, Emanetler e Where e.EmanetTeslimEdildi = 'Sürüyor' and e.UyeNo = u.UyeNo and e.KitapNo = k.KitapNo";
-            getList(query);
+            DatabaseCrudHelper.GetList(dataGridView1, query);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -451,7 +425,7 @@ namespace Library
             groupBox2.Enabled = false;
 
             string query = "Select u.UyeAd, u.UyeSoyad,u.UyeTelefon,u.UyeEposta,k.KitapAd,e.EmanetTeslimEdildi from Kitaplar k, Uyeler u, Emanetler e Where e.EmanetTeslimEdildi = 'Teslim Edilmedi' and e.UyeNo = u.UyeNo and e.KitapNo = k.KitapNo";
-            getList(query);
+            DatabaseCrudHelper.GetList(dataGridView1, query);
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
@@ -495,7 +469,7 @@ namespace Library
                         KitapAciklama = textBox8.Text
                     };
                     DatabaseCrudHelper.KitapEkle(kitap, label9);
-                    getList(DatabaseQueryHelper.QueryKitap);
+                    DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryKitap);
                 }catch(System.Exception exception)
                 {
                     MessageBox.Show(exception.Message);
@@ -529,7 +503,7 @@ namespace Library
                         EmanetTeslimEdildi = teslimedilme
                     };
                     DatabaseCrudHelper.EmanetEkle(emanet, label9);
-                    getList(DatabaseQueryHelper.QueryEmanet);
+                    DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryEmanet);
                 }
                 catch(System.Exception exception)
                 {
@@ -540,17 +514,16 @@ namespace Library
             {
                 try
                 {
-                    string uyeKayit = "insert into Uyeler(UyeAd,UyeSoyad,UyeTelefon,UyeEposta,UyeAdres) values(@ad,@soyad,@telefon,@eposta,@adres)";
-                    cmd = new SqlCommand(uyeKayit, con);
-                    cmd.Parameters.AddWithValue("@ad", textBox2.Text);
-                    cmd.Parameters.AddWithValue("@soyad", textBox3.Text);
-                    cmd.Parameters.AddWithValue("@telefon", textBox4.Text);
-                    cmd.Parameters.AddWithValue("@eposta", textBox5.Text);
-                    cmd.Parameters.AddWithValue("@adres", textBox6.Text);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    label9.Text = "Ekleme Başarılı\nUyeler";
-                    getList(DatabaseQueryHelper.QueryUye);
+                    var uye = new Uye
+                    {
+                        UyeAd = textBox2.Text,
+                        UyeSoyad = textBox3.Text,
+                        UyeTelefon = textBox4.Text,
+                        UyeEposta = textBox5.Text,
+                        UyeAdres = textBox6.Text
+                    };
+                    DatabaseCrudHelper.UyeEkle(uye, label9);
+                    DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryUye);
                 }catch(System.Exception exception)
                 {
                     MessageBox.Show(exception.Message);
@@ -577,7 +550,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Silme Başarılı\nUyeler";
-                        getList(DatabaseQueryHelper.QueryUye);
+                        DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryUye);
                     }
                     catch
                     { }
@@ -592,7 +565,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Silme Başarılı\nKitaplar";
-                        getList(DatabaseQueryHelper.QueryKitap);
+                        DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryKitap);
                     }
                     catch
                     { }
@@ -607,7 +580,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Silme Başarılı\nEmanetler";
-                        getList(DatabaseQueryHelper.QueryEmanet);
+                        DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryEmanet);
                     }
                     catch
                     { }

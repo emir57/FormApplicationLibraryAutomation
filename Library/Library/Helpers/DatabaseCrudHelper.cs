@@ -33,6 +33,25 @@ namespace Library.Helpers
             ConnectionSql();
             ConnectionOpen();
         }
+        public static void GetList(DataGridView gridView,string query)
+        {
+            try
+            {
+                ConnectionSql();
+                ConnectionOpen();
+                cmd = new SqlCommand(query, con);
+                da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                gridView.DataSource = dt;
+                con.Close();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+        //Insert
         public static void KitapEkle(Kitap kitap,Label label)
         {
             string query = "insert into Kitaplar(KitapAd,KitapYazari,KitapBaskiYil,KitapSayfaSayi,KitapDil,KitapYayinEvi,KitapAciklama) values(@kitapad,@kitapyazar,@kitapbaski,@kitapsayfasayi,@kitapdil,@kitapyayinevi,@kitapaciklama)";
@@ -64,5 +83,34 @@ namespace Library.Helpers
             con.Close();
             label.Text = "Ekleme Başarılı\nEmanetler";
         }
+        public static void UyeEkle(Uye uye,Label label)
+        {
+            string uyeKayit = "insert into Uyeler(UyeAd,UyeSoyad,UyeTelefon,UyeEposta,UyeAdres) values(@ad,@soyad,@telefon,@eposta,@adres)";
+            cmd = new SqlCommand(uyeKayit, con);
+            cmd.Parameters.AddWithValue("@ad", uye.UyeAd);
+            cmd.Parameters.AddWithValue("@soyad", uye.UyeSoyad);
+            cmd.Parameters.AddWithValue("@telefon", uye.UyeTelefon);
+            cmd.Parameters.AddWithValue("@eposta", uye.UyeEposta);
+            cmd.Parameters.AddWithValue("@adres", uye.UyeAdres);
+            cmd.ExecuteNonQuery();
+            con.Close();
+            label.Text = "Ekleme Başarılı\nUyeler";
+        }
+        
+        //Delete
+        public static void KitapSil(int id,Label label)
+        {
+
+        }
+        public static void EmanetSil(int id, Label label)
+        {
+
+        }
+        public static void UyeSil(int id, Label label)
+        {
+
+        }
+
+
     }
 }
