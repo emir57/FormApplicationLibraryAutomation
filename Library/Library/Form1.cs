@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using Library.Helpers;
 
 namespace Library
 {
@@ -19,10 +20,6 @@ namespace Library
         }
         //Version
         private string _version = "V1.0";
-        //Querys
-        public string _queryUye = "Select * from Uyeler";
-        public string _queryKitap = "Select * from Kitaplar";
-        public string _queryEmanet = "Select * from Emanetler";
         //Checks
         public bool defaultCheck = true;
         public bool uyeCheck = false;
@@ -360,7 +357,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Güncelleme Başarılı\nUyeler";
-                        getList(_queryUye);
+                        getList(DatabaseHelper.QueryUye);
                     }
                     catch (Exception exception)
                     {
@@ -402,7 +399,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Güncelleme Başarılı\nEmanetler";
-                        getList(_queryEmanet);
+                        getList(DatabaseHelper.QueryEmanet);
                     }
                     catch (Exception exception)
                     {
@@ -428,7 +425,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Güncelleme Başarılı\nKitaplar";
-                        getList(_queryKitap);
+                        getList(DatabaseHelper.QueryKitap);
                     }
                     catch (Exception exception)
                     {
@@ -524,7 +521,7 @@ namespace Library
                     cmd.ExecuteNonQuery();
                     con.Close();
                     label9.Text = "Ekleme Başarılı\nKitaplar";
-                    getList(_queryKitap);
+                    getList(DatabaseHelper.QueryKitap);
                 }catch(System.Exception exception)
                 {
                     MessageBox.Show(exception.Message);
@@ -561,7 +558,7 @@ namespace Library
                     cmd.ExecuteNonQuery();
                     con.Close();
                     label9.Text = "Ekleme Başarılı\nEmanetler";
-                    getList(_queryEmanet);
+                    getList(DatabaseHelper.QueryEmanet);
                 }
                 catch(System.Exception exception)
                 {
@@ -582,7 +579,7 @@ namespace Library
                     cmd.ExecuteNonQuery();
                     con.Close();
                     label9.Text = "Ekleme Başarılı\nUyeler";
-                    getList(_queryUye);
+                    getList(DatabaseHelper.QueryUye);
                 }catch(System.Exception exception)
                 {
                     MessageBox.Show(exception.Message);
@@ -609,7 +606,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Silme Başarılı\nUyeler";
-                        getList(_queryUye);
+                        getList(DatabaseHelper.QueryUye);
                     }
                     catch
                     { }
@@ -624,7 +621,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Silme Başarılı\nKitaplar";
-                        getList(_queryKitap);
+                        getList(DatabaseHelper.QueryKitap);
                     }
                     catch
                     { }
@@ -639,7 +636,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Silme Başarılı\nEmanetler";
-                        getList(_queryEmanet);
+                        getList(DatabaseHelper.QueryEmanet);
                     }
                     catch
                     { }
