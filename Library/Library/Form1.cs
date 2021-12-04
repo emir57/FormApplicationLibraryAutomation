@@ -582,7 +582,6 @@ namespace Library
 
                 }
             }
-            ConnectionOpen();
             string query="";
             //Kitap Check
             if (kitapCheck == true && uyeCheck == false && emanetCheck == false)
@@ -606,13 +605,7 @@ namespace Library
             }
             try
             {
-                ConnectionSql();
-                cmd = new SqlCommand(query, con);
-                da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                dataGridView1.DataSource = dt;
-                con.Close();
+                DatabaseCrudHelper.GetList(dataGridView1, query);
             }
             catch{}
         }
@@ -627,38 +620,30 @@ namespace Library
             try
             {
                 DateTime start = Convert.ToDateTime(reverseDate(mtbxStart.Text));
-            DateTime end = Convert.ToDateTime(reverseDate(mtbxEnd.Text));
-
-            ConnectionOpen();
-            string query = "";
-            if(rbtEmanetGeriAlma.Checked==true)
-            {
-                query = "Select * from Emanetler Where EmanetGeriAlmaTarih between '" + reverseDate(mtbxStart.Text) + "' and '" + reverseDate(mtbxEnd.Text) + "'";
-            }
-            else if(rbtEmanetIslem.Checked == true)
-            {
-                query = "Select * from emanetler Where EmanetIslemTarih between '" + reverseDate(mtbxStart.Text) + "' and '" + reverseDate(mtbxEnd.Text)+"'";
-            }
-            else if(rbtEmanetVerme.Checked == true)
-            {
-                query = "Select * from Emanetler Where EmanetVermeTarih between '" + reverseDate(mtbxStart.Text) + "' and '" + reverseDate(mtbxEnd.Text) + "'";
-            }
-            else
-            {
-                MessageBox.Show("Lütfen Seçenek Seçiniz", "Uyarı!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-                ConnectionSql();
-                cmd = new SqlCommand(query, con);
-                da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                dataGridView1.DataSource = dt;
-                con.Close();
+                DateTime end = Convert.ToDateTime(reverseDate(mtbxEnd.Text));
+                string query = "";
+                if(rbtEmanetGeriAlma.Checked==true)
+                {
+                    query = "Select * from Emanetler Where EmanetGeriAlmaTarih between '" + reverseDate(mtbxStart.Text) + "' and '" + reverseDate(mtbxEnd.Text) + "'";
+                }
+                else if(rbtEmanetIslem.Checked == true)
+                {
+                    query = "Select * from emanetler Where EmanetIslemTarih between '" + reverseDate(mtbxStart.Text) + "' and '" + reverseDate(mtbxEnd.Text)+"'";
+                }
+                else if(rbtEmanetVerme.Checked == true)
+                {
+                    query = "Select * from Emanetler Where EmanetVermeTarih between '" + reverseDate(mtbxStart.Text) + "' and '" + reverseDate(mtbxEnd.Text) + "'";
+                }
+                else
+                {
+                    MessageBox.Show("Lütfen Seçenek Seçiniz", "Uyarı!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                DatabaseCrudHelper.GetList(dataGridView1, query);
             }
             catch(Exception exception)
-            { MessageBox.Show(exception.Message); }
-               
-
+            { 
+                MessageBox.Show(exception.Message); 
+            }
         }
     }
 }
