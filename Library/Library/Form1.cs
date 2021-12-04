@@ -357,7 +357,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Güncelleme Başarılı\nUyeler";
-                        getList(DatabaseHelper.QueryUye);
+                        getList(DatabaseQueryHelper.QueryUye);
                     }
                     catch (Exception exception)
                     {
@@ -399,7 +399,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Güncelleme Başarılı\nEmanetler";
-                        getList(DatabaseHelper.QueryEmanet);
+                        getList(DatabaseQueryHelper.QueryEmanet);
                     }
                     catch (Exception exception)
                     {
@@ -425,7 +425,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Güncelleme Başarılı\nKitaplar";
-                        getList(DatabaseHelper.QueryKitap);
+                        getList(DatabaseQueryHelper.QueryKitap);
                     }
                     catch (Exception exception)
                     {
@@ -521,7 +521,7 @@ namespace Library
                     cmd.ExecuteNonQuery();
                     con.Close();
                     label9.Text = "Ekleme Başarılı\nKitaplar";
-                    getList(DatabaseHelper.QueryKitap);
+                    getList(DatabaseQueryHelper.QueryKitap);
                 }catch(System.Exception exception)
                 {
                     MessageBox.Show(exception.Message);
@@ -558,7 +558,7 @@ namespace Library
                     cmd.ExecuteNonQuery();
                     con.Close();
                     label9.Text = "Ekleme Başarılı\nEmanetler";
-                    getList(DatabaseHelper.QueryEmanet);
+                    getList(DatabaseQueryHelper.QueryEmanet);
                 }
                 catch(System.Exception exception)
                 {
@@ -579,7 +579,7 @@ namespace Library
                     cmd.ExecuteNonQuery();
                     con.Close();
                     label9.Text = "Ekleme Başarılı\nUyeler";
-                    getList(DatabaseHelper.QueryUye);
+                    getList(DatabaseQueryHelper.QueryUye);
                 }catch(System.Exception exception)
                 {
                     MessageBox.Show(exception.Message);
@@ -606,7 +606,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Silme Başarılı\nUyeler";
-                        getList(DatabaseHelper.QueryUye);
+                        getList(DatabaseQueryHelper.QueryUye);
                     }
                     catch
                     { }
@@ -621,7 +621,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Silme Başarılı\nKitaplar";
-                        getList(DatabaseHelper.QueryKitap);
+                        getList(DatabaseQueryHelper.QueryKitap);
                     }
                     catch
                     { }
@@ -636,7 +636,7 @@ namespace Library
                         cmd.ExecuteNonQuery();
                         con.Close();
                         label9.Text = "Silme Başarılı\nEmanetler";
-                        getList(DatabaseHelper.QueryEmanet);
+                        getList(DatabaseQueryHelper.QueryEmanet);
                     }
                     catch
                     { }

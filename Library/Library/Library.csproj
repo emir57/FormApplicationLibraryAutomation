@@ -52,7 +52,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\DatabaseHelper.cs" />
+    <Compile Include="Helpers\DatabaseCrudHelper.cs" />
+    <Compile Include="Helpers\DatabaseQueryHelper.cs" />
+    <Compile Include="Models\Emanet.cs" />
+    <Compile Include="Models\Kitap.cs" />
+    <Compile Include="Models\Uye.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Helpers
 {
-    public static class DatabaseHelper
+    public static class DatabaseQueryHelper
     {
         public static string QueryUye = "Select * from Uyeler";
         public static string QueryKitap = "Select * from Kitaplar";
