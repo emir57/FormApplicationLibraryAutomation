@@ -108,7 +108,12 @@ namespace Library.Helpers
         }
         public static void UyeSil(int id, Label label)
         {
-
+            string query = "delete from Uyeler where UyeNo=@id";
+            cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
+            con.Close();
+            label.Text = "Silme Başarılı\nUyeler";
         }
 
 

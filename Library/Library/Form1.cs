@@ -538,18 +538,11 @@ namespace Library
             DialogResult check = MessageBox.Show("Seçili Kaydı Silmek Üzeresiniz", "Dikkat!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if(DialogResult.Yes == check)
             {
-                ConnectionSql();
-                ConnectionOpen();
                 if (uyeCheck == true && emanetCheck == false && kitapCheck == false)
                 {
                     try
                     {
-                        string query = "delete from Uyeler where UyeNo=@id";
-                        cmd = new SqlCommand(query, con);
-                        cmd.Parameters.AddWithValue("@id", textBox1.Text);
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                        label9.Text = "Silme Başarılı\nUyeler";
+                        DatabaseCrudHelper.UyeSil(int.Parse(textBox1.Text), label9);
                         DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryUye);
                     }
                     catch
