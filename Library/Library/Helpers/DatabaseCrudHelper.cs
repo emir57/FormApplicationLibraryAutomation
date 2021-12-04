@@ -126,6 +126,18 @@ namespace Library.Helpers
             label.Text = "Silme Başarılı\nUyeler";
         }
 
-
+        //Update
+        public static void KitapGuncelle(Kitap kitap, Label label)
+        {
+            
+        }
+        public static void EmanetGuncelle(Emanet emanet, Label label)
+        {
+            
+        }
+        public static void UyeGuncelle(Uye uye, Label label)
+        {
+            
+        }
     }
 }

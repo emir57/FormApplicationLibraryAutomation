@@ -293,8 +293,6 @@ namespace Library
             DialogResult check = MessageBox.Show("Seçili Kaydı Güncellemek Üzeresiniz", "Dikkat!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if(DialogResult.Yes==check)
             {
-                ConnectionSql();
-                ConnectionOpen();
                 label9.Text = "";
                 label9.Text += "Güncelleme Başarılı";
                 if (uyeCheck == true && emanetCheck == false && kitapCheck == false)
