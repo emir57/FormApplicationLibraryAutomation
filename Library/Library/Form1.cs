@@ -552,12 +552,7 @@ namespace Library
                 {
                     try
                     {
-                        string query = "delete from Kitaplar where KitapNo=@id";
-                        cmd = new SqlCommand(query, con);
-                        cmd.Parameters.AddWithValue("@id", textBox1.Text);
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                        label9.Text = "Silme Başarılı\nKitaplar";
+                        DatabaseCrudHelper.KitapSil(int.Parse(textBox1.Text), label9);
                         DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryKitap);
                     }
                     catch
@@ -567,6 +562,7 @@ namespace Library
                 {
                     try
                     {
+                        
                         string query = "delete from Emanetler where EmanetNo=@id";
                         cmd = new SqlCommand(query, con);
                         cmd.Parameters.AddWithValue("@id", textBox1.Text);

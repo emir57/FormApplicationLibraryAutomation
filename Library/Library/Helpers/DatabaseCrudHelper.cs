@@ -100,7 +100,12 @@ namespace Library.Helpers
         //Delete
         public static void KitapSil(int id,Label label)
         {
-
+            string query = "delete from Kitaplar where KitapNo=@id";
+            cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
+            con.Close();
+            label.Text = "Silme Başarılı\nKitaplar";
         }
         public static void EmanetSil(int id, Label label)
         {
