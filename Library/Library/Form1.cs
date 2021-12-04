@@ -309,7 +309,6 @@ namespace Library
                             UyeAdres = textBox6.Text
                         };
                         DatabaseCrudHelper.UyeGuncelle(uye, label9);
-                        
                         DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryUye);
                     }
                     catch (Exception exception)
@@ -364,20 +363,18 @@ namespace Library
                 {
                     try
                     {
-                        string kitapkayit = "update Kitaplar set KitapAd=@kitapad ,KitapYazari=@kitapyazar ,KitapBaskiYil=@kitapbaski ,KitapSayfaSayi=@kitapsayfasayi ,KitapDil=@kitapdil ,KitapYayinEvi=@kitapyayinevi ,KitapAciklama=@kitapaciklama where KitapNo=@id";
-                        cmd = new SqlCommand(kitapkayit, con);
-                        cmd.Parameters.AddWithValue("@id", textBox1.Text);
-                        cmd.Parameters.AddWithValue("@kitapad", textBox2.Text);
-                        cmd.Parameters.AddWithValue("@kitapyazar", textBox3.Text);
-                        cmd.Parameters.AddWithValue("@kitapbaski", textBox4.Text);
-                        cmd.Parameters.AddWithValue("@kitapsayfasayi", textBox5.Text);
-                        cmd.Parameters.AddWithValue("@kitapdil", textBox6.Text);
-                        cmd.Parameters.AddWithValue("@kitapyayinevi", textBox7.Text);
-                        cmd.Parameters.AddWithValue("@kitapaciklama", textBox8.Text);
-
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                        label9.Text = "Güncelleme Başarılı\nKitaplar";
+                        var kitap = new Kitap
+                        {
+                            KitapNo = int.Parse(textBox1.Text),
+                            KitapAd = textBox2.Text,
+                            KitapYazari = textBox3.Text,
+                            KitapBaskiYil = int.Parse(textBox4.Text),
+                            KitapSayfaSayi = int.Parse(textBox5.Text),
+                            KitapDil = textBox6.Text,
+                            KitapYayinEvi = textBox7.Text,
+                            KitapAciklama = textBox8.Text
+                        };
+                        
                         DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryKitap);
                     }
                     catch (Exception exception)

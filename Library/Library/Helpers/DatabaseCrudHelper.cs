@@ -129,7 +129,19 @@ namespace Library.Helpers
         //Update
         public static void KitapGuncelle(Kitap kitap, Label label)
         {
-            
+            string kitapkayit = "update Kitaplar set KitapAd=@kitapad ,KitapYazari=@kitapyazar ,KitapBaskiYil=@kitapbaski ,KitapSayfaSayi=@kitapsayfasayi ,KitapDil=@kitapdil ,KitapYayinEvi=@kitapyayinevi ,KitapAciklama=@kitapaciklama where KitapNo=@id";
+            cmd = new SqlCommand(kitapkayit, con);
+            cmd.Parameters.AddWithValue("@id", kitap.KitapNo);
+            cmd.Parameters.AddWithValue("@kitapad", kitap.KitapAd);
+            cmd.Parameters.AddWithValue("@kitapyazar", kitap.KitapYazari);
+            cmd.Parameters.AddWithValue("@kitapbaski", kitap.KitapBaskiYil);
+            cmd.Parameters.AddWithValue("@kitapsayfasayi", kitap.KitapSayfaSayi);
+            cmd.Parameters.AddWithValue("@kitapdil", kitap.KitapDil);
+            cmd.Parameters.AddWithValue("@kitapyayinevi", kitap.KitapYayinEvi);
+            cmd.Parameters.AddWithValue("@kitapaciklama", kitap.KitapAciklama);
+            cmd.ExecuteNonQuery();
+            con.Close();
+            label.Text = "Güncelleme Başarılı\nKitaplar";
         }
         public static void EmanetGuncelle(Emanet emanet, Label label)
         {
