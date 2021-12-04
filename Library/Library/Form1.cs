@@ -27,16 +27,6 @@ namespace Library
         public bool emanetCheck = false;
         public bool kitapCheck = false;
         //**********************************************************
-        //Connection Strings
-        //local
-        //IP
-        //public string connectionString = "Server=ip,port;Database=database;User Id=username;Password=password;";
-        //Connection
-        SqlConnection con;
-        SqlCommand cmd;
-        SqlDataAdapter da;
-        DataSet ds;
-        //**********************************************************
         //Date function
         public string reverseDate(string text)
         {
@@ -62,17 +52,12 @@ namespace Library
             maskedIslemTarihi.Hide();
             maskedVerme.Hide();
             label11.Hide();
-
-            
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult itOk = MessageBox.Show("Programdan Çıkmak Üzeresiniz", "Program Kapanıyor", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-            if (itOk == DialogResult.OK)
-            {
-
-            }
+            if (itOk == DialogResult.OK){ }
             else
             {
                 e.Cancel = true;
@@ -85,14 +70,12 @@ namespace Library
             gbxArama.Enabled = true;
             defaultCheck = true;
             groupBox2.Enabled = false;
-            //Default List
             string query = "Select u.UyeNo ,u.UyeAd,u.UyeSoyad,u.UyeTelefon,u.UyeEposta,u.UyeAdres,k.KitapAd,e.EmanetTeslimEdildi from Kitaplar k, Emanetler e, Uyeler u where e.UyeNo = u.UyeNo and e.KitapNo = k.KitapNo";
             DatabaseCrudHelper.GetList(dataGridView1, query);
         }
 
         private void BtnUyeList_Click(object sender, EventArgs e)
         {
-            //check
             gbxEmanet.Enabled = false;
             kitapCheck = false;
             emanetCheck = false;
@@ -102,13 +85,13 @@ namespace Library
 
             string query = "Select u.UyeAd,u.UyeSoyad,u.UyeTelefon,u.UyeEposta,u.UyeAdres,e.EmanetTeslimEdildi from Uyeler u left join Emanetler e on e.UyeNo = u.UyeNo";
             groupBox2.Enabled = false;
-            //Listed than Uye
+
             DatabaseCrudHelper.GetList(dataGridView1, query);
         }
 
         private void BtnKitapList_Click(object sender, EventArgs e)
         {
-            //check
+            
             gbxEmanet.Enabled = false;
             kitapCheck = false;
             emanetCheck = false;
@@ -117,19 +100,18 @@ namespace Library
 
             string query = "Select k.KitapNo, k.KitapAd,k.KitapYayinEvi,e.EmanetNot,e.EmanetVermeTarih,e.EmanetGeriAlmaTarih,e.EmanetIslemTarih, e.EmanetTeslimEdildi from Kitaplar k left join Emanetler e on k.KitapNo= e.KitapNo";
             groupBox2.Enabled = false;
-            //Listed than Kitap
+            
             DatabaseCrudHelper.GetList(dataGridView1, query);
         }
 
         private void BtnKitapAllList_Click(object sender, EventArgs e)
         {
-            //**********************************************************
-            //Kitap
+            
             defaultCheck = false;
             kitapCheck = true;
             emanetCheck = false;
             uyeCheck = false;
-            //Controllers
+            
             gbxEmanet.Enabled = false;
             gbxArama.Enabled = true;
             label11.Hide();
@@ -141,8 +123,7 @@ namespace Library
             textBox6.Show();
             textBox7.Show();
             textBox8.Show();
-            //****************
-            //All Kitap Listed
+            
             string query = "Select * from Kitaplar";
             DatabaseCrudHelper.GetList(dataGridView1, query);
             label1.Text = "No:"; textBox1.ReadOnly = true;
@@ -161,13 +142,12 @@ namespace Library
 
         private void BtnUyeAllList_Click(object sender, EventArgs e)
         {
-            //**********************************************************
-            //Uye
+            
             defaultCheck = false;
             kitapCheck = false;
             emanetCheck = false;
             uyeCheck = true;
-            //Controllers
+            
             gbxEmanet.Enabled = false;
             gbxArama.Enabled = true;
             label11.Hide();
@@ -179,8 +159,7 @@ namespace Library
             textBox6.Show();
             textBox7.Hide();
             textBox8.Hide();
-            //***************
-            //All Uye Listed
+            
             string query = "Select * from Uyeler";
             DatabaseCrudHelper.GetList(dataGridView1, query);
             label1.Text = "No:"; textBox1.ReadOnly = true;
@@ -286,10 +265,9 @@ namespace Library
 
         }
 
+        //Update
         private void button1_Click(object sender, EventArgs e)
         {
-            //**********************************************************
-            //Update
             DialogResult check = MessageBox.Show("Seçili Kaydı Güncellemek Üzeresiniz", "Dikkat!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if(DialogResult.Yes==check)
             {
@@ -384,7 +362,6 @@ namespace Library
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //check
             gbxArama.Enabled = false;
             gbxEmanet.Enabled = false;
             defaultCheck = false;
@@ -396,7 +373,6 @@ namespace Library
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //check
             gbxArama.Enabled = false;
             gbxEmanet.Enabled = false;
             defaultCheck = false;
@@ -408,7 +384,6 @@ namespace Library
 
         private void button4_Click(object sender, EventArgs e)
         {
-            //check
             gbxArama.Enabled = false;
             gbxEmanet.Enabled = false;
             defaultCheck = false;
@@ -426,6 +401,7 @@ namespace Library
         {
         }
 
+        //Clear
         private void button6_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
@@ -441,6 +417,7 @@ namespace Library
             maskedVerme.Text = "";
             CmbBoxTeslim.SelectedIndex = 2;
         }
+        
         //Add
         private void button5_Click(object sender, EventArgs e)
         {
