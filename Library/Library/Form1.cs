@@ -530,11 +530,9 @@ namespace Library
                 }
             }
         }
-
+        //Delete
         private void button7_Click(object sender, EventArgs e)
         {
-            //**********************************************************
-            //Delete
             DialogResult check = MessageBox.Show("Seçili Kaydı Silmek Üzeresiniz", "Dikkat!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if(DialogResult.Yes == check)
             {
@@ -545,8 +543,7 @@ namespace Library
                         DatabaseCrudHelper.UyeSil(int.Parse(textBox1.Text), label9);
                         DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryUye);
                     }
-                    catch
-                    { }
+                    catch{ }
                 }
                 if (kitapCheck == true && emanetCheck == false && uyeCheck == false)
                 {
@@ -555,32 +552,18 @@ namespace Library
                         DatabaseCrudHelper.KitapSil(int.Parse(textBox1.Text), label9);
                         DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryKitap);
                     }
-                    catch
-                    { }
+                    catch{ }
                 }
                 if (emanetCheck == true && kitapCheck == false && uyeCheck == false)
                 {
                     try
                     {
-                        
-                        string query = "delete from Emanetler where EmanetNo=@id";
-                        cmd = new SqlCommand(query, con);
-                        cmd.Parameters.AddWithValue("@id", textBox1.Text);
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                        label9.Text = "Silme Başarılı\nEmanetler";
+                        DatabaseCrudHelper.EmanetSil(int.Parse(textBox1.Text), label9);
                         DatabaseCrudHelper.GetList(dataGridView1,DatabaseQueryHelper.QueryEmanet);
                     }
-                    catch
-                    { }
+                    catch{ }
                 }
-            }
-            else
-            {
-
-            }
-            
-            
+            }          
         }
 
         private void tbxSearch_TextChanged(object sender, EventArgs e)

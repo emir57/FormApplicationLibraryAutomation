@@ -109,7 +109,12 @@ namespace Library.Helpers
         }
         public static void EmanetSil(int id, Label label)
         {
-
+            string query = "delete from Emanetler where EmanetNo=@id";
+            cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
+            con.Close();
+            label.Text = "Silme Başarılı\nEmanetler";
         }
         public static void UyeSil(int id, Label label)
         {
